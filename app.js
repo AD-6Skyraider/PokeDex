@@ -13,10 +13,9 @@ function createPokeCard(pokemon){
     // Setting the innerHTML for the new card using the data/object that is passed into the "pokemon" parameter. Also, using the .toUpperCase method on the Pokemon name so it will display in uppercase. 
     pokeCard.innerHTML = `
     <div class="img-container">
-      <img src="${pokemon.data.sprites.front_shiny}" 
-      alt="${pokemon.data.name}" >
+      <img src="${pokemon.data.sprites.front_shiny}" alt="${pokemon.data.name}" >
     </div>
-    <h3 class="name">${pokemon.data.name.toUpperCase}</h3>
+    <h3 class="name">${pokemon.data.name.toUpperCase()}</h3>
     `;
 } 
 
@@ -29,5 +28,15 @@ async function getPokemonData(id){
     console.log(pokemonData.data.sprites.front_shiny);
     console.log(pokemonData.data.name);
      createPokeCard(pokemonData);
-
 }
+
+// The getPokemon function loops through all the pokemon id's then runs/executes the getPokemonData function for each id.
+// NOTE: Using async/await on this function because the code in the getPokemonData function is asynchronous (There is an Axios request in that function).
+async function getPokemon(){
+    for(i = 1; i <= numOfPokemon; i++){
+        console.log(i);
+        await getPokemonData(i);
+    }
+}
+// Running/Executing the getPokemon function which runs/executes the getPokemonData function each time through the loop.
+getPokemon();
